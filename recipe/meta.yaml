@@ -43,6 +43,9 @@ about:
   summary: OpenTelemetry Collector Protobuf over HTTP Exporter
   license: Apache-2.0
   license_file: LICENSE
+  license_family: Apache
+  dev_url: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-http
+  doc_url: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-http
 
 extra:
   recipe-maintainers:

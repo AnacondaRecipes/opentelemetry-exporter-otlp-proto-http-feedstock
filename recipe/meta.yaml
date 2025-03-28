@@ -42,6 +42,7 @@ test:
 about:
   home: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-http
   summary: OpenTelemetry Collector Protobuf over HTTP Exporter
+  description: This library allows to export data to the OpenTelemetry Collector using the OpenTelemetry Protocol using Protobuf over HTTP.
   license: Apache-2.0
   license_file: LICENSE
   license_family: Apache

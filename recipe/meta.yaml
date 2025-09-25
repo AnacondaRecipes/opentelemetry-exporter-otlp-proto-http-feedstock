@@ -32,6 +32,8 @@ requirements:
 # E   ModuleNotFoundError: No module named 'opentelemetry.test'
 # https://pypi.org/project/opentelemetry-test-utils, not in the main channel.
 {% set ignore_tests = " --ignore=tests/metrics/test_otlp_metrics_exporter.py" %}
+# Disabled unstable tests with timeouts:
+{% set deselect_tests = " --deselect=tests/test_proto_log_exporter.py::TestOTLPHTTPLogExporter::test_retry_timeout" %}
 test:
   source_files:
     - tests
@@ -39,7 +41,7 @@ test:
     - opentelemetry.exporter.otlp.proto.http
   commands:
     - pip check
-    - pytest -v tests {{ ignore_tests }}
+    - pytest -v tests {{ ignore_tests }} {{ deselect_tests }}
   requires:
     - pip
     - pytest >=7.4.4

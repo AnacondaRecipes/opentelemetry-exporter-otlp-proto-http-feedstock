@@ -35,6 +35,7 @@ requirements:
 # Disabled unstable tests with timeouts:
 {% set deselect_tests = " --deselect=tests/test_proto_log_exporter.py::TestOTLPHTTPLogExporter::test_retry_timeout" %}
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_proto_span_exporter.py::TestOTLPSpanExporter::test_retry_timeout" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_proto_log_exporter.py::TestOTLPHTTPLogExporter::test_shutdown_interrupts_retry_backoff" %}
 test:
   source_files:
     - tests

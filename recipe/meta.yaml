@@ -1,18 +1,18 @@
 {% set name = "opentelemetry-exporter-otlp-proto-http" %}
-{% set version = "1.40.0" %}
+{% set version = "1.43.0" %}
 
 package:
-  name: {{ name|lower }}
+  name: {{ name }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: db48f5e0f33217588bbc00274a31517ba830da576e59503507c839b38fa0869c
+  sha256: fa8a42bb7d00ee5391f4c0b04d8e6a46c03caa437903296ab73a81dc11ba118f
 
 build:
   number: 0
-  skip: True  # [py<39]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -24,12 +24,12 @@ requirements:
     - googleapis-common-protos >=1.52,<2
     - opentelemetry-api >=1.15,<2
     - opentelemetry-proto =={{ version }}
-    - opentelemetry-sdk >=1.40.0,<1.41.0.dev
+    - opentelemetry-sdk =={{ version }}
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
     - requests >=2.7,<3
     - typing-extensions >=4.5.0
 
-# pytest disabled in 1.40.0: every test module imports opentelemetry.test
+# pytest disabled in 1.43.0: every test module imports opentelemetry.test
 # (from opentelemetry-test-utils, not on pkgs/main). Re-enable once
 # opentelemetry-test-utils is packaged.
 test:

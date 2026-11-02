@@ -1,5 +1,5 @@
 {% set name = "opentelemetry-exporter-otlp-proto-http" %}
-{% set version = "1.43.0" %}
+{% set version = "1.45.1" %}
 
 package:
   name: {{ name }}
@@ -7,10 +7,10 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: fa8a42bb7d00ee5391f4c0b04d8e6a46c03caa437903296ab73a81dc11ba118f
+  sha256: 45c218405ce3fd879596924b1874bf9a8f6880206d61065c5a912c8e5c297fb7
 
 build:
-  number: 1
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation  # [not win]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --no-compile  # [win]
   skip: true  # [py<310]
@@ -32,19 +32,29 @@ requirements:
     - opentelemetry-proto =={{ version }}
     - opentelemetry-sdk =={{ version }}
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
+    - opentelemetry-exporter-otlp-common ==0.66b1
+    - opentelemetry-exporter-http-transport ==0.66b1
     - requests >=2.7,<3
     - typing-extensions >=4.5.0
 
-# pytest disabled in 1.43.0: every test module imports opentelemetry.test
-# (from opentelemetry-test-utils, not on pkgs/main). Re-enable once
-# opentelemetry-test-utils is packaged.
+# 'mocket' is a test dependency of 'opentelemetry-test-utils', but mocket is not available on main.
+# enable once it would be in main channel
+# E   ModuleNotFoundError: No module named 'mocket'
+{% set ignored_tests = "--ignore=tests/test_proto_log_exporter.py " %}
+{% set ignored_tests = ignored_tests + " --ignore=tests/test_proto_span_exporter.py " %}
+{% set ignored_tests = ignored_tests + " --ignore=tests/metrics/test_otlp_metrics_exporter.py" %}
+
 test:
+  source_files:
+    - tests
   imports:
     - opentelemetry.exporter.otlp.proto.http
   commands:
     - pip check
+    - pytest -vv tests {{ ignored_tests }}
   requires:
     - pip
+    - pytest
 
 about:
   home: https://github.com/open-telemetry/opentelemetry-python/tree/main/exporter/opentelemetry-exporter-otlp-proto-http

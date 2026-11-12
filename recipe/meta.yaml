@@ -1,5 +1,5 @@
 {% set name = "opentelemetry-exporter-otlp-proto-http" %}
-{% set version = "1.45.1" %}
+{% set version = "1.45.2" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name.replace('-', '_')}}-{{ version }}.tar.gz
-  sha256: 45c218405ce3fd879596924b1874bf9a8f6880206d61065c5a912c8e5c297fb7
+  sha256: 5984a3fb46bc4628e4e2b85d4a6e72637e03962aae6cf372791137768a4ad939
 
 build:
   number: 0
@@ -32,8 +32,8 @@ requirements:
     - opentelemetry-proto =={{ version }}
     - opentelemetry-sdk =={{ version }}
     - opentelemetry-exporter-otlp-proto-common =={{ version }}
-    - opentelemetry-exporter-otlp-common ==0.66b1
-    - opentelemetry-exporter-http-transport ==0.66b1
+    - opentelemetry-exporter-otlp-common ==0.66b2
+    - opentelemetry-exporter-http-transport ==0.66b2
     - requests >=2.7,<3
     - typing-extensions >=4.5.0
 
